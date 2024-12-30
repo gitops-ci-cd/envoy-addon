@@ -26,12 +26,8 @@ spec:
               inlineString: |
                 function envoy_on_request(request_handle)
                   local host = request_handle:headers():get(":authority")
-                  -- TODO - Remove log
-                  request_handle:logCritical("Request Host: " .. tostring(host))
-                  local subdomain = string.match(host, "^(%w+)%..*")
+                  local subdomain = string.match(host, "^([a-zA-Z0-9-]+)%.")
                   if subdomain then
                     request_handle:headers():add("x-subdomain", subdomain)
-                    -- TODO - Remove log
-                    request_handle:logCritical("Subdomain added to header: " .. subdomain)
                   end
                 end
