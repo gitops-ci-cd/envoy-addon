@@ -23,20 +23,20 @@ spec:
             "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
             generate_request_id: true
 
-    - applyTo: HTTP_FILTER
-      match:
-        context: GATEWAY
-        listener:
-          filterChain:
-            filter:
-              name: "envoy.filters.network.http_connection_manager"
-      patch:
-        operation: INSERT_BEFORE
-        value:
-          name: envoy.filters.http.router
-          typed_config:
-            "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
-            start_child_span: true
+    # - applyTo: HTTP_FILTER
+    #   match:
+    #     context: GATEWAY
+    #     listener:
+    #       filterChain:
+    #         filter:
+    #           name: "envoy.filters.network.http_connection_manager"
+    #   patch:
+    #     operation: INSERT_BEFORE
+    #     value:
+    #       name: envoy.filters.http.router
+    #       typed_config:
+    #         "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+    #         start_child_span: true
 
     - applyTo: HTTP_FILTER
       match:
@@ -58,7 +58,6 @@ spec:
                   local subdomain = string.match(host, "^([a-zA-Z0-9-]+)%.")
                   if subdomain then
                     request_handle:headers():add("baggage", "feature=" .. subdomain)
+                    request_handle:headers():add("traceparent", "00-1234567890abcdef1234567890abcdef-1234567890abcdef-01")
                   end
-
-                  request_handle:headers():add("traceparent", "00-1234567890abcdef1234567890abcdef-1234567890abcdef-01")
                 end
