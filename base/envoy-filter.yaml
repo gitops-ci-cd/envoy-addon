@@ -60,5 +60,5 @@ spec:
                     request_handle:headers():add("baggage", "feature=" .. subdomain)
                   end
 
-                  -- request_handle:headers():add("traceparent", "00-1234567890abcdef1234567890abcdef-1234567890abcdef-01")
+                  request_handle:headers():add("traceparent", "00-1234567890abcdef1234567890abcdef-1234567890abcdef-01")
                 end
