@@ -58,6 +58,6 @@ spec:
                   local subdomain = string.match(host, "^([a-zA-Z0-9-]+)%.")
                   if subdomain then
                     request_handle:headers():add("baggage", "feature=" .. subdomain)
-                    request_handle:headers():add("traceparent", "00-1234567890abcdef1234567890abcdef-1234567890abcdef-01")
+                    request_handle:headers():add("traceparent", "00-6f8f63e2a67a703e8671429f1f28527e-486ddbb4d69e0303-01")
                   end
                 end
