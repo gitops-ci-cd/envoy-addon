@@ -28,6 +28,6 @@ spec:
                   local host = request_handle:headers():get(":authority")
                   local subdomain = string.match(host, "^([a-zA-Z0-9-]+)%.")
                   if subdomain then
-                    request_handle:headers():add("x-subdomain", subdomain)
+                    request_handle:headers():add("baggage", "feature=" .. subdomain)
                   end
                 end
